@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>休憩タイマー</title>
+    <link rel="stylesheet" href="CSS/sanitize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+    <script src="JavaScript/script.js" defer></script>
+</head>
+
+<body class="yusei-magic-regular">
+
+    <!-- =========================
+         JavaScript
+    ========================== -->
+
+
+    <!-- =========================
+         休憩選択メニュー
+    ========================== -->
+
+    <aside class="break-menu">
+
+        <!-- 自由追加 -->
+        <section class="add-break">
+
+            <div class="section-label">
+                休憩内容自由追加
+            </div>
+
+            <div class="add-form">
+
+                <input type="text" id="breakInput" maxlength="20" aria-label="休憩内容">
+
+                <button id="addButton" type="button" aria-label="休憩を追加">
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- 休憩内容を選択 -->
+        <section class="break-selection">
+
+            <div class="section-label">
+                休憩内容を選択
+            </div>
+
+            <div id="breakList" class="break-list">
+                <!-- JavaScriptで生成 -->
+            </div>
+
+        </section>
+
+
+        <!-- 今日の休憩履歴 -->
+        <section class="break-history">
+
+            <h2>
+                今日の休憩履歴
+            </h2>
+
+            <div id="historyList">
+                <!-- JavaScriptで生成 -->
+            </div>
+
+        </section>
+
+    </aside>
+
+
+    <main class="timer-container current-break">
+
+        <!-- 現在の休憩 -->
+        <div class="current-break current-label">
+            現在の休憩
+        </div>
+
+        <!-- 休憩内容 -->
+        <h1 class="break-name" id="currentBreakName">
+            ストレッチ
+        </h1>
+
+        <!-- 推奨時間 -->
+        <div class="recommended current-time">
+            <span>推奨</span>
+            <span id="currentBreakTime">10～15分</span>
+        </div>
+
+        <!-- タイマー -->
+        <div class="timer-circle">
+
+            <div class="timer-content">
+
+                <div id="timer">
+                    00:00
+                </div>
+
+                <div id="timer-status">
+                    休憩開始
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 操作ボタン -->
+        <div class="controls">
+
+            <button id="startButton" class="control-button start-button">
+                <span id="buttonIcon">▶</span>
+            </button>
+
+            <button id="resetButton" class="control-button reset-button">
+            ▫️
+            </button>
+
+        </div>
+
+        <!-- 休憩の効果 -->
+
+        <section class="break-effect-box">
+
+            <h2>
+                休憩の効果
+            </h2>
+
+            <p id="currentBreakEffect">
+                ストレッチによって体をほぐし、
+                気分をリフレッシュすることができます。
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <figure>
+        <figcaption id="illust-title">
+            花の成長
+        </figcaption>
+        <img src="images/イラスト土.jpg" alt="花の画像" id="flowerImg" class="flowerImg">
+    </figure>
+
+</body>
+
+</html>
