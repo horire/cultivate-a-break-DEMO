@@ -1,0 +1,1174 @@
+/* ========================================
+   cultivate a break
+======================================== */
+
+
+/* ========================================
+   基本設定
+======================================== */
+
+.yusei-magic-regular {
+    font-family: "Yusei Magic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+:root {
+    --cream: #f5f8df;
+    --cream-light: #fbfcf2;
+    --green: #a9cdbb;
+    --white-green:#eaf3d7;
+    --green-dark: #96856c;
+    --green-deep: #6f8877;
+    --olive: #c7c7a2;
+    --yellow: #d1bf45;
+    --brown: #9c5c38;
+    --brown-light: #a56b45;
+    --text: #8b7a65;
+    --text-light: #aaa08e;
+    --border: #a99b7e;
+    --border-light: #c8c0ae;
+    --panel: #fffefa;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    overflow-x: hidden;
+}
+
+
+body {
+    position: relative;
+    min-height: 100vh;
+    margin: 0;
+    padding: 610px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:
+        linear-gradient(180deg,
+            #eef5d8 0,
+            #eef5d8 285px,
+            #f7f9ed 420px,
+            #ffffff 540px,
+            #ffffff 100%);
+
+    color: var(--text);
+    letter-spacing: 0.03em;
+    overflow-x: hidden;
+}
+
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+h1,
+h2,
+p {
+    margin: 0;
+}
+
+
+/* ========================================
+   ファーストビュー
+======================================== */
+
+body::before {
+    content: "cultivate a break";
+    position: absolute;
+    top: 190px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    color: var(--text);
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+}
+
+
+
+
+
+/* ========================================
+   左側メニュー開閉ボタン
+======================================== */
+
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 142px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    border-radius: 50%;
+    background: var(--green);
+    color: #ffffff;
+    z-index: 1002;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.menu-toggle:hover {
+    background: var(--green-dark);
+    animation: menuToggleBounce 0.55s ease-in-out;
+}
+
+
+.menu-toggle:active {
+    animation: none;
+    transform: scale(0.95);
+}
+
+
+@keyframes menuToggleBounce {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    25% {
+        transform: translateY(-10px);
+    }
+
+    50% {
+        transform: translateY(0);
+    }
+
+    70% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+
+.menu-toggle span:last-child {
+    font-family: Arial, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1;
+}
+
+
+.menu-tap {
+    position: absolute;
+    top: -17px;
+    color: var(--green);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+}
+
+
+
+
+
+
+/* ========================================
+   スクロール案内
+======================================== */
+
+.timer-container::before {
+    content: "scroll\A↓";
+    white-space: pre;
+    position: absolute;
+    top: -410px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.55;
+}
+
+
+/* ========================================
+   メインレイアウト
+======================================== */
+
+.top-layout {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+}
+
+
+/* ========================================
+   タイマー本体
+======================================== */
+
+.timer-container {
+    position: relative;
+    width: min(100%, 510px);
+    min-height: 620px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+
+.current-break.current-label {
+    width: auto;
+    min-height: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 15px;
+    padding: 8px 20px;
+    background: var(--green);
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+
+#currentBreakName {
+    margin: 0 0 13px;
+    color: var(--text);
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: 0.03em;
+}
+
+
+.recommended {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: auto;
+    min-height: 0;
+    padding: 5px 12px;
+    border-radius: 5px;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   タイマー
+======================================== */
+
+.timer-circle {
+    width: min(330px, 75vw);
+    height: min(330px, 75vw);
+    margin-top: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px solid var(--green);
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+
+.timer-content {
+    text-align: center;
+}
+
+
+#timer {
+    color: var(--text);
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+}
+
+
+#timer-status {
+    margin-top: 12px;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   操作ボタン
+======================================== */
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.control-button {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background: #ffffff;
+    color: var(--text);
+    font-size: 1.1rem;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
+}
+
+
+.control-button:hover {
+    background-color: #fafaf2;
+    transform: scale(1.04);
+}
+
+
+.control-button:active {
+    transform: scale(0.97);
+}
+
+
+.reset-button {
+    font-size: 1.3rem;
+}
+
+
+.reset-button:hover {
+    opacity: 0.75;
+}
+
+
+/* ========================================
+   休憩の効果
+======================================== */
+
+.break-effect-box {
+    position: relative;
+    width: min(100%, 520px);
+    margin-top: 45px;
+    padding: 28px 20px 18px;
+    border: 3px solid var(--green);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+
+.break-effect-box h2 {
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    margin: 0;
+    padding: 6px 18px;
+    min-width: 110px;
+    border-radius: 7px 0 7px 0;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+}
+
+
+#currentBreakEffect {
+    color: var(--text);
+    font-size: 0.68rem;
+    line-height: 1.65;
+    padding-top: 5px;
+}
+
+
+/* ========================================
+   花の成長
+======================================== */
+
+figure {
+    position: absolute;
+    top: 125px;
+    left: calc(50% + 270px);
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    margin-top: 60px;
+    background: transparent;
+    transform: scale(0.80);
+    transform-origin: center;
+}
+
+#illust-title {
+    width: auto;
+    min-height: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 20px;
+    border-radius: 7px;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.flowerImg {
+    width: 210px;
+    height: 285px;
+    object-fit: cover;
+    object-position: center;
+    border: 3px solid var(--border);
+    border-radius: 9px;
+}
+
+
+/* ========================================
+   左側スライドメニュー
+======================================== */
+
+.break-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100vh;
+    padding: 90px 24px 80px;
+    background: rgba(255, 254, 250, 0.97);
+    border-right: 3px solid var(--border);
+    box-shadow: 8px 0 25px rgba(139, 122, 101, 0.12);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+    transform: translateX(0);
+    transition: transform 0.45s ease;
+}
+
+
+/* メニューが開いた状態 */
+body.menu-open .break-menu {
+    transform: translateX(0);
+}
+
+
+/* メニューが閉じた状態 */
+body:not(.menu-open) .break-menu {
+    transform: translateX(-100%);
+}
+
+
+
+/* ========================================
+   メニュー内共通
+======================================== */
+
+.break-menu>section+section {
+    margin-top: 14px;
+}
+
+
+.section-label {
+    position: relative;
+    z-index: 1;
+    width: fit-content;
+    min-width: 120px;
+    padding: 8px 14px;
+    border-radius: 7px;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+
+
+
+.break-selection .section-label {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    min-width: 120px;
+    margin: -22px auto 10px;
+    padding: 8px 14px;
+    border-radius: 7px;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.03em;
+    text-align: center;
+}
+
+
+.add-break .section-label {
+    margin: 0 auto 10px;
+}
+
+
+.add-break {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+}
+
+
+.break-selection,
+.break-history {
+    background: transparent;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 12px;
+}
+
+.break-selection {
+    padding: 12px;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    background: transparent;
+}
+
+
+
+/* ========================================
+   自由追加
+======================================== */
+
+.add-break {
+    margin-bottom: 36px;
+
+}
+
+
+.add-form {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+}
+
+
+#breakInput {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    padding: 8px 14px;
+    border: 2px solid var(--border);
+    border-right: 0;
+    border-radius: 10px 0 0 10px;
+    background: #ffffff;
+    color: var(--text);
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+#breakInput:focus {
+    border-color: var(--green-deep);
+    box-shadow: 0 0 0 3px rgba(169, 205, 187, 0.18);
+}
+
+
+#addButton {
+    width: 48px;
+    height: 46px;
+    border: 0;
+    border-radius: 0 10px 10px 0;
+    background: var(--green-dark);
+    color: #ffffff;
+    font-size: 1.35rem;
+    line-height: 1;
+    transition: opacity 0.2s ease;
+}
+
+
+#addButton:hover {
+    opacity: 0.82;
+}
+
+
+/* ========================================
+   休憩内容一覧
+======================================== */
+
+#breakList {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 17px 14px 14px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    overflow-y: auto;
+}
+
+/* ========================================
+   休憩項目
+======================================== */
+
+.break-item {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: #fffef9;
+    color: var(--text);
+    text-align: left;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.break-item:hover {
+    border-color: var(--green-deep);
+}
+
+
+.break-item.selected {
+    background: #eef5df;
+    border-color: var(--green-deep);
+}
+
+
+.break-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+
+.break-item .break-name {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+
+.break-time {
+    padding: 2px 5px;
+    border-radius: 4px;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+.break-effect {
+    margin-top: 5px;
+    color: var(--text-light);
+    font-size: 0.66rem;
+    line-height: 1.45;
+}
+
+
+/* ========================================
+   休憩履歴
+======================================== */
+
+.break-history {
+    margin-top: 30px;
+    padding: 17px 14px 14px;
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    background: transparent;
+}
+
+
+.break-history h2 {
+    margin: 0 0 -3px;
+    padding: 0 17px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+
+#historyList {
+    height: 300px;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 9px;
+    background: #fffef9;
+    color: var(--text);
+    font-size: 0.78rem;
+}
+
+
+.history-time {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--green);
+    color: #ffffff;
+    font-size: 0.62rem;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   フッター
+======================================== */
+.site-footer {
+    width: 100%;
+    height: 80px;
+    margin: 40px 0 0;
+    padding: 0;
+    background: var(--white-green);
+    border-top: 3px solid var(--white-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.site-footer p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+}
+
+
+/* ========================================
+   ローディング画面
+======================================== */
+
+.loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #eef5d8;
+
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+
+/* ローディング終了 */
+
+.loading-screen.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+.loading-content {
+    width: min(80%, 360px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* ローディングアイコン */
+
+.loading-flower {
+    font-size: 4rem;
+
+    margin-bottom: 18px;
+
+    animation:
+        loadingGrow 1.2s ease-in-out infinite alternate;
+}
+
+
+/* タイトル */
+
+.loading-text {
+    margin: 0 0 25px;
+
+    color: var(--text);
+
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+
+    animation: loadingFade 1.5s ease-in-out infinite;
+}
+
+
+/* ローディングバー */
+
+.loading-bar {
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: rgba(169, 205, 187, 0.35);
+}
+
+
+.loading-bar span {
+    display: block;
+
+    width: 0;
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: var(--green);
+
+    animation: loadingProgress 2.2s ease forwards;
+}
+
+
+/* ========================================
+   ローディングアニメーション
+======================================== */
+
+@keyframes loadingGrow {
+
+    0% {
+        transform: scale(0.85) translateY(5px);
+    }
+
+    100% {
+        transform: scale(1.05) translateY(-5px);
+    }
+
+}
+
+
+@keyframes loadingFade {
+
+    0% {
+        opacity: 0.45;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.45;
+    }
+
+}
+
+
+@keyframes loadingProgress {
+
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+
+}
+
+
+/* ========================================
+   トップ画像
+======================================== */
+
+.top-visual {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 560px;
+
+    overflow: hidden;
+
+    opacity: 0;
+
+    transition:
+        opacity 1s ease;
+}
+
+
+.top-visual.show {
+    opacity: 1;
+}
+
+
+.top-visual-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* トップ画像の下に少し薄い膜を重ねる */
+
+.top-visual::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0) 55%,
+            rgba(255, 255, 255, 0.8) 100%);
+
+    pointer-events: none;
+}
+
+/* ========================================
+   再生ボタン：休憩未選択
+======================================== */
+
+.start-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    background: #eeeeea;
+    transform: none;
+}
+
+
+/* 無効状態ではホバーアニメーションを無効にする */
+
+.start-button:disabled:hover {
+    background: #eeeeea;
+    transform: none;
+}
+
+
+/* ========================================
+   スマートフォン
+======================================== */
+
+@media screen and (max-width: 900px) {
+
+    body {
+        padding: 520px 22px 110px;
+    }
+
+    body::before {
+        top: 190px;
+        font-size: clamp(2.5rem, 9vw, 4.5rem);
+    }
+
+
+    body::after {
+        top: 38px;
+        right: 30px;
+    }
+
+
+    .top-layout {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    figure {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 30px auto 0;
+    }
+
+    .timer-container::before {
+        top: -335px;
+    }
+
+
+    .timer-container {
+        min-height: 0;
+    }
+
+
+    /* 左メニュー */
+    .break-menu {
+        width: min(350px, 88vw);
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+
+    .menu-toggle {
+        top: 20px;
+        left: calc(min(350px, 88vw) - 27px);
+    }
+
+}
+
+
+@media screen and (max-width: 600px) {
+
+    body {
+        padding: 430px 18px 100px;
+        background:
+            linear-gradient(180deg,
+                #eef5d8 0,
+                #eef5d8 250px,
+                #f7f9ed 340px,
+                #ffffff 430px,
+                #ffffff 100%);
+    }
+
+
+    body::before {
+        top: 145px;
+        font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+
+    body::after {
+        top: 25px;
+        right: 22px;
+        font-size: 1.7rem;
+    }
+
+
+    .timer-container::before {
+        top: -280px;
+        font-size: 0.8rem;
+    }
+
+
+    #timer {
+        font-size: 3rem;
+    }
+
+
+    #currentBreakName {
+        font-size: 2.15rem;
+    }
+
+
+    .break-effect-box {
+        width: 100%;
+        margin-top: 35px;
+    }
+
+
+    .flowerImg {
+        width: 180px;
+        height: 250px;
+    }
+
+
+    /* スライドメニュー */
+    .break-menu {
+        width: 86vw;
+        padding-top: 80px;
+    }
+
+
+    .top-layout {
+        width: 100%;
+    }
+
+
+    .timer-container {
+        width: 100%;
+    }
+
+
+    figure {
+        width: 220px;
+        position: relative;
+        top: auto;
+        left: auto;
+        margin: 30px auto 0;
+    }
+
+
+    .menu-toggle {
+        position: fixed;
+        top: 15px;
+        left: calc(86vw - 27px);
+        width: 52px;
+        height: 52px;
+    }
+
+
+    body.menu-open .menu-toggle {
+        left: calc(86vw - 27px);
+    }
+
+    .top-visual {
+        height: 430px;
+    }
+
+    .loading-text {
+        font-size: 1.1rem;
+    }
+
+    .loading-flower {
+        font-size: 3.2rem;
+    }
+
+}
