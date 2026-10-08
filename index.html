@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>休憩タイマー</title>
+
+    <link rel="stylesheet" href="CSS/sanitize.css">
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+    <script src="JavaScript/script.js" defer></script>
+</head>
+
+
+<body class="yusei-magic-regular">
+
+    <section class="howto-site-container">
+        <a href="howto.html" class="howto-site" target="_blank">
+            使用方法
+        </a>
+    </section>
+
+
+    <!-- =========================
+     ローディング
+========================== -->
+    <div id="loadingScreen" class="loading-screen">
+
+        <div class="loading-content">
+
+            <div class="loading-flower">
+                <img src="images/siteIcon.png" alt="花の画像">
+            </div>
+
+            <p class="loading-text">
+                cultivate your break
+            </p>
+
+            <div class="loading-bar">
+                <span id="loadingBar"></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+     トップ画面
+========================== -->
+    <section id="topVisual" class="top-visual">
+
+        <!-- トップ背景画像 -->
+        <img src="images/topImg.png" alt="" class="top-visual-image">
+
+
+        <!-- タイトル -->
+        <div class="top-title" aria-label="cultivate a break">
+            cultivate your break
+        </div>
+
+
+        <!-- スクロール案内 -->
+        <div class="scroll-guide" aria-hidden="true">
+            <span>scroll</span>
+            <span class="scroll-arrow">↓</span>
+        </div>
+
+    </section>
+
+
+    <!-- ========================================
+         メインコンテンツ
+    ========================================= -->
+
+    <div class="top-layout">
+
+        <main class="timer-container current-break">
+
+
+            <!-- 左側の休憩メニュー開閉ボタン -->
+            <button id="menuToggle" class="menu-toggle" type="button" aria-label="休憩メニューを開く" aria-expanded="false">
+
+                <span class="menu-tap">TAP</span>
+                <span id="menuArrow">→</span>
+
+            </button>
+
+
+            <!-- 現在の休憩 -->
+            <div class="current-break current-label">
+                現在の休憩
+            </div>
+
+
+            <!-- 休憩内容 -->
+            <h1 class="break-name" id="currentBreakName">
+                休憩内容を選択してください
+            </h1>
+
+
+            <!-- 推奨時間 -->
+            <div class="recommended current-time">
+                <span>推奨</span>
+                <span id="currentBreakTime">〜分</span>
+            </div>
+
+
+            <!-- タイマー -->
+            <div class="timer-circle">
+
+                <div class="timer-content">
+
+                    <div id="timer">
+                        00:00
+                    </div>
+
+                    <div id="timer-status">
+                        休憩開始
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- 操作ボタン -->
+            <div class="controls">
+
+                <!-- スタート -->
+                <button id="startButton" class="control-button start-button" type="button" aria-label="タイマー開始">
+                    ▶
+                </button>
+
+
+                <!-- 一時停止 -->
+                <button id="pauseButton" class="control-button pause-button" type="button" aria-label="タイマー一時停止">
+                    Ⅱ
+                </button>
+
+
+                <!-- リセット -->
+                <button id="resetButton" class="control-button reset-button" type="button" aria-label="タイマーリセット">
+                    ◼︎
+                </button>
+
+            </div>
+
+
+            <!-- 休憩の効果 -->
+            <section class="break-effect-box">
+
+                <h2>
+                    休憩の効果
+                </h2>
+
+                <p id="currentBreakEffect">
+                    休憩内容が選択されていません。
+                </p>
+
+            </section>
+
+        </main>
+
+
+        <!-- ========================================
+             花の成長
+        ========================================= -->
+
+        <figure>
+
+            <figcaption id="illust-title">
+                花の成長
+            </figcaption>
+
+            <img src="images/イラスト土.jpg" alt="花の画像" id="flowerImg" class="flowerImg">
+
+        </figure>
+
+    </div>
+
+
+    <!-- ========================================
+         休憩メニュー
+         左側からスライド表示
+    ========================================= -->
+
+    <aside id="breakMenu" class="break-menu" aria-hidden="true">
+
+
+        <!-- 休憩内容を選択 -->
+        <section class="break-selection">
+
+            <div class="section-label">
+                休憩内容を選択
+            </div>
+
+            <div id="breakList" class="break-list">
+                <!-- JavaScriptで生成 -->
+            </div>
+
+        </section>
+
+
+        <!-- 自由追加 -->
+        <section class="add-break">
+
+            <div class="section-label">
+                休憩内容自由追加
+            </div>
+
+            <div class="add-form">
+
+                <input type="text" id="breakInput" maxlength="20" aria-label="休憩内容">
+
+                <button id="addButton" type="button" aria-label="休憩を追加">
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- 今日の休憩履歴 -->
+        <section class="break-history">
+
+            <h2>
+                今日の休憩履歴
+            </h2>
+
+            <div id="historyList">
+                <!-- JavaScriptで生成 -->
+            </div>
+
+        </section>
+
+    </aside>
+
+
+
+
+    <!-- ========================================
+         1日の振り返りセクション
+    ========================================= -->
+
+    <section class="reflection-section">
+        <!-- 左側：枠（カード）の中に作業時間入力フォームを配置 -->
+        <div class="reflection-card">
+            <!-- 上部タブ見出し -->
+            <div class="reflection-tag">1日の振り返り</div>
+
+            <div class="reflection-left">
+                <h2 class="reflection-title">作業時間を入力して分析</h2>
+                <div class="input-group">
+                    <input type="number" id="workTimeInput" class="work-input" min="1" placeholder="120">
+                    <span class="unit-text">分</span>
+                </div>
+                <button type="button" id="analyzeBtn" class="analyze-button">分析する</button>
+                <p class="reflection-note">＊分析を開始するとその日の記録がリセットされます</p>
+            </div>
+        </div>
+
+        <!-- 右側：ボーダー（枠）の外側に配置 -->
+        <div class="reflection-right">
+            <!-- 3列の数値結果テーブル -->
+            <div class="stats-table">
+                <div class="stat-col">
+                    <span class="stat-label">作業時間</span>
+                    <div class="stat-value"><span id="displayWorkTime">0</span> <span class="unit">分</span></div>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-label">休憩時間</span>
+                    <div class="stat-value" id="displayBreakTime">0<span class="unit">分</span>0<span
+                            class="unit">秒</span></div>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-label">休憩率</span>
+                    <div class="stat-value highlight" id="displayBreakRate">0.0<span class="unit">%</span></div>
+                </div>
+            </div>
+
+            <!-- アドバイス・評価メッセージボックス -->
+            <div class="feedback-box">
+                <div class="feedback-icon"></div>
+                <div class="feedback-content">
+                    <h3 id="feedbackTitle" class="feedback-title">作業時間を入力して分析してください。</h3>
+                    <p id="feedbackText" class="feedback-text">計測された休憩時間をもとに1日のバランスを分析します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- howto-site-container に三本線（ハンバーガー）用のデザイン要素・クラスを追加 -->
+    <div class="howto-site-container" id="howtoToggle" role="button" aria-label="使い方">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </div>
+
+    <!-- モバイル版用 オーバーレイ背景 -->
+    <div id="menuOverlay" class="menu-overlay"></div>
+
+    <!-- モバイル版用 画面下部ナビゲーションバー -->
+    <nav class="mobile-bottom-nav">
+        <button type="button" id="mobileMenuBtn" class="bottom-nav-btn" aria-label="休憩メニューを開く">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <circle cx="3" cy="6" r="1.5" fill="currentColor"></circle>
+                <circle cx="3" cy="12" r="1.5" fill="currentColor"></circle>
+                <circle cx="3" cy="18" r="1.5" fill="currentColor"></circle>
+            </svg>
+        </button>
+        <button type="button" id="scrollToTimerBtn" class="bottom-nav-btn" aria-label="タイマーまでスクロール">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2" />
+                <polyline points="16 14 12 10 8 14" fill="none" stroke="currentColor" />
+            </svg>
+        </button>
+        <button type="button" id="scrollToBottomBtn" class="bottom-nav-btn" aria-label="最下部までスクロール">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.2" />
+                <polyline points="8 10 12 14 16 10" fill="none" stroke="currentColor" />
+            </svg>
+        </button>
+    </nav>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 cultivate your break</p>
+    </footer>
+
+
+
+</body>
+
+</html>
